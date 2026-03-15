@@ -98,6 +98,10 @@ sudo pacman -S docker docker-compose
 sudo systemctl enable --now docker.service
 docker compose up --build -d
 
+
+## To stop the docker container 
+docker compose stop
+
 ```
 
 ## How to Maintain This Repository

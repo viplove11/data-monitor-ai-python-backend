@@ -76,6 +76,30 @@ ruff check .
 - `app/schemas/`: Put request/response payload models and validation.
 - `tests/`: Mirror `app/` structure for predictable test discovery.
 
+## Docker Setup
+```bash
+##for windows
+wsl --install
+
+## Download docker from docker official website
+## After Downloading and completing the setup run the following 
+
+## Here is the link btw https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-win-amd64
+
+
+docker comopose version ##To check the version and verify the install
+##Navigate to your project root and open cmd there(can be done using the top path display tab and run the following
+docker compose up --build -d
+
+
+#for linux
+
+sudo pacman -S docker docker-compose
+sudo systemctl enable --now docker.service
+docker compose up --build -d
+
+```
+
 ## How to Maintain This Repository
 
 When creating new folders or files, follow this checklist:

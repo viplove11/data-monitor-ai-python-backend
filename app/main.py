@@ -1,11 +1,14 @@
-from fastapi import HTTPException
 from fastapi import FastAPI
 
 from app.api.v1.router import api_router
 from app.core.config import settings
 from app.core.logging import setup_logging
-from app.db_init.create_testdb import initDatabase
+from sqlalchemy import create_engine
 
+import os
+
+db_url = os.getenv('DATABASE_URL', 'mysql+pymysql://root:31415@db:3306/testdb')
+engine = create_engine(db_url)
 
 setup_logging()
 
@@ -24,10 +27,3 @@ app.include_router(api_router, prefix=settings.API_V1_PREFIX)
 def root() -> dict[str, str]:
     return {"message": "hello world"}
 
-
-@app.get("/database/init-db", tags=["init_database"])
-def init_database():
-    err = initDatabase()
-    if err is not None:
-        raise HTTPException(status_code=500, detail=str(err))
-    return {"status": "ok"}

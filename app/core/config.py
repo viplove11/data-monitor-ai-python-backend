@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
 
     # Database connection strings
-    MYSQL_DSN: str = "mysql+pymysql://user:password@localhost:3306/app_db"
+    MYSQL_DSN: str = "mysql+mysqldb://user:password@localhost:3306/app_db"
     ORACLE_DSN: str = "oracle+oracledb://user:password@localhost:1521/?service_name=XE"
     MONGODB_URI: str = "mongodb://localhost:27017/app_db"
     MSSQL_DSN: str = "mssql+pyodbc://user:password@localhost:1433/app_db?driver=ODBC+Driver+18+for+SQL+Server"

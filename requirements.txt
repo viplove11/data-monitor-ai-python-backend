@@ -2,7 +2,5 @@ fastapi
 uvicorn[standard]
 pydantic-settings
 python-dotenv
-pytest
-httpx
-ruff
-mypy
+mysqlclient
+sqlalchemy

@@ -7,7 +7,7 @@ services:
       - .:/app
     environment:
       - DATABASE_URL=mysql+pymysql://root:31415@db:3306/testdb
-      - POSTGRES_URL=postgresql://root:31415@pgdb:5432/monitor_db
+      - POSTGRES_URL=postgresql://root:31415@pgdb:5432/testdb
     depends_on:
       db:
         condition: service_healthy
@@ -35,9 +35,8 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=31415
       - POSTGRES_DB=testdb
-      - POSTGRES_HOST=pgdb
     ports:
-      - "5433:5433"
+      - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:

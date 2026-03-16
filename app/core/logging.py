@@ -3,6 +3,12 @@ from logging.config import dictConfig
 
 from app.core.config import settings
 
+import datetime as datetime
+
+def LogError(err):
+    print(f"ERROR:\t{datetime.datetime.now()} : {err} ")
+
+
 
 def setup_logging() -> None:
     dictConfig(

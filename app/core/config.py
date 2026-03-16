@@ -1,6 +1,6 @@
 from functools import lru_cache
 import os
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -12,14 +12,10 @@ class Settings(BaseSettings):
     ENABLE_DOCS: bool = True
     LOG_LEVEL: str = "INFO"
 
-
-    POSTGRES_URL  : str = os.getenv("POSTGRES_URL").__str__()
-    POSTGRES_HOST : str = os.getenv("POSTGRES_HOST")
-    POSTGRES_USER : str = os.getenv("POSTGRES_USER")
-    POSTGRES_PASS : str = os.getenv("POSTGRES_PASSWORD")
-    POSTGRES_DATABASE : str = os.getenv("POSTGRES_DB")
-    POSTGRES_PORT : str = "5433"
-
+#      - POSTGRES_USER=root
+#      - POSTGRES_PASSWORD=31415
+#      - POSTGRES_DB=testdb
+#      - POSTGRES_HOST=pgdb
 
 settings = Settings()
 
@@ -29,4 +25,4 @@ def get_settings() -> Settings:
     return Settings()
 
 
-settings = get_settings()
+settings = Settings(BaseSettings)

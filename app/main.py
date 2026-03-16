@@ -3,12 +3,9 @@ from fastapi import FastAPI
 from app.api.v1.router import api_router
 from app.core.config import settings
 from app.core.logging import setup_logging
-from sqlalchemy import create_engine
-
-import os
-
-db_url = os.getenv('DATABASE_URL', 'mysql+pymysql://root:31415@db:3306/testdb')
-engine = create_engine(db_url)
+from app.db.postgres.connection import Postgres 
+import http
+import json
 
 setup_logging()
 
@@ -28,12 +25,24 @@ def root() -> dict[str, str]:
     return {"message": "hello world"}
 
 
+# init Postgres , :)
+postgres_engine = Postgres()
 
-#these are only for test , not for production
-@app.get("/database/test/postgres/show", tags=["show"])
-def show():
-    return
 
-@app.get("/database/test/postgres/init-db", tags=["init_database"])
-def init_database():
-    return
+@app.get("/postgres/", tags=["postgres_root"])
+def postgres_root():
+    return {"message" : "postgres root"}
+
+
+#for test not production!!
+@app.get("/postgres/init-test", tags=["init_test"])
+def init_test():
+    err = postgres_engine.init_test()
+    if err is not None:
+        return {"err" : err.args}
+    return {"status" : http.HTTPStatus.OK}
+
+@app.get("/postgres/show-test" , tags=["show_test"])
+def show_test():
+    entries = postgres_engine.show_test()
+    return {"entries" : entries}

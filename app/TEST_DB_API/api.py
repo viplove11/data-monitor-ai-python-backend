@@ -1,7 +1,6 @@
 import random
 from datetime import datetime, timedelta
 from sqlalchemy import text
-import json
 first_names = ["Liam", "Olivia", "Noah", "Emma", "Oliver", "Ava", "Elijah",
                "Charlotte", "William", "Sophia", "James", "Amelia"]
 last_names = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia",

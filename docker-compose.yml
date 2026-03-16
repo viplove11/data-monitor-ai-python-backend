@@ -7,10 +7,13 @@ services:
       - .:/app
     environment:
       - DATABASE_URL=mysql+pymysql://root:31415@db:3306/testdb
+      - POSTGRES_URL=postgresql://user:pass@pgdb:5432/monitor_db
     depends_on:
       db:
         condition: service_healthy
-  
+      pgdb:
+        condition: service_healthy
+
   db:
     image: mysql:8.0
     ports:
@@ -21,10 +24,27 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p31415"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p31415"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgdb:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=31415
+      - POSTGRES_DB=testdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d testdb"]
       interval: 10s
       timeout: 5s
       retries: 5
 
 volumes:
   mysql_data:
+  pg_data:

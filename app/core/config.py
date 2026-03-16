@@ -13,7 +13,12 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
 
 
-    POSTGRES_URL: str = os.getenv("POSTGRES_URL", "postgresql://user:pass@pgdb:5432/monitor_db")
+    POSTGRES_URL  : str = os.getenv("POSTGRES_URL").__str__()
+    POSTGRES_HOST : str = os.getenv("POSTGRES_HOST")
+    POSTGRES_USER : str = os.getenv("POSTGRES_USER")
+    POSTGRES_PASS : str = os.getenv("POSTGRES_PASSWORD")
+    POSTGRES_DATABASE : str = os.getenv("POSTGRES_DB")
+    POSTGRES_PORT : str = "5433"
 
 
 settings = Settings()

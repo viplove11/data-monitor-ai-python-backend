@@ -1,11 +1,8 @@
-from fastapi import HTTPException
 from fastapi import FastAPI
 
 from app.api.v1.router import api_router
 from app.core.config import settings
 from app.core.logging import setup_logging
-from app.TEST_DB_API.api import initDatabase
-from app.TEST_DB_API.api import print_db
 from sqlalchemy import create_engine
 
 import os
@@ -31,17 +28,12 @@ def root() -> dict[str, str]:
     return {"message": "hello world"}
 
 
-@app.get("/database/show", tags=["show"])
+
+#these are only for test , not for production
+@app.get("/database/test/postgres/show", tags=["show"])
 def show():
-    tables, err = print_db(engine)
-    if err is not None:
-        raise HTTPException(status_code=500, detail=str(err))
-    return {"tables": tables}
+    return
 
-
-@app.get("/database/init-db", tags=["init_database"])
+@app.get("/database/test/postgres/init-db", tags=["init_database"])
 def init_database():
-    err = initDatabase(engine)
-    if err is not None:
-        raise HTTPException(status_code=500, detail=str(err))
-    return {"status": "ok"}
+    return
